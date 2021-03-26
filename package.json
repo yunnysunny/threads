@@ -10,7 +10,7 @@
   "scripts": {
     "test": "nyc mocha  --recursive test/mocha --timeout 999999",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "publish": "npm publish --registry https://registry.npmjs.org"
+    "publish": "npm publish --registry https://registry.npmjs.org --access public"
   },
   "repository": {
     "type": "git",
