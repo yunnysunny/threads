@@ -3,7 +3,7 @@ const path = require('path');
 const {expect} = require('chai');
 
 describe('basic test:', function() {
-    it('init a thread pool', function(done) {
+    it('init a thread pool with poolSize 5', function(done) {
         const POOL_SIZE = 5;
         const poolStr = new ThreadPool({
             poolSize: POOL_SIZE,
@@ -18,6 +18,15 @@ describe('basic test:', function() {
                 done();
             }
         });
+    });
+    it('init a thread pool with poolSize 1', function(done) {
+        const POOL_SIZE = 1;
+        const poolStr = new ThreadPool({
+            poolSize: POOL_SIZE,
+            script: path.join(__dirname, '../scripts/str_worker.js')
+        });
+        poolStr.send('xx');
+        done();
     });
     it('transfer string single time', function(done) {
         const poolStr = new ThreadPool({
