@@ -1,0 +1,30 @@
+{
+  "name": "@yunnysunny/threads",
+  "version": "0.1.0",
+  "description": "Thread util",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nyc mocha  --recursive test/mocha --timeout 999999",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@gitlab.17zuoye.net:10022/zylive/threads.git"
+  },
+  "keywords": [
+    "thread",
+    "worker"
+  ],
+  "author": "yunnysunny",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "coveralls": "^3.1.0",
+    "mocha": "^8.3.2",
+    "nyc": "^15.1.0"
+  }
+}
