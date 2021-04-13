@@ -1,6 +1,6 @@
 {
   "name": "@yunnysunny/threads",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Thread util",
   "main": "index.js",
   "directories": {
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "nyc mocha  --recursive test/mocha --timeout 999999",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "publish": "npm publish --registry https://registry.npmjs.org --access public"
+    "publish-public": "npm publish --registry https://registry.npmjs.org --access public"
   },
   "repository": {
     "type": "git",

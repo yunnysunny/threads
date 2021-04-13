@@ -26,8 +26,10 @@ yarn add @yunnysunny/threads
 
 ## Usage
 
+### NoneBlockingThreadPool
+
 ```javascript
-const {ThreadPool} = require('@yunnysunny/threads');
+const {NoneBlockingThreadPool: ThreadPool} = require('@yunnysunny/threads');
 
 const poolStr = new ThreadPool({
     poolSize: 5,
@@ -36,5 +38,25 @@ const poolStr = new ThreadPool({
 poolStr.send('test');
 poolStr.on(ThreadPool.EVENT_NEW_MESSAGE, function(msg) {
     //process msg
+});
+poolStr.on(ThreadPool.EVENT_WORKER_ERROR, function(err, threadId) {
+    //show error message
+});
+```
+
+### BlockingThreadPool
+
+```javascript
+const {NoneBlockingThreadPool: ThreadPool} = require('@yunnysunny/threads');
+const POOL_SIZE = 5;
+const poolStr = new ThreadPool({
+    poolSize: POOL_SIZE,
+    script: path.join(__dirname, '../scripts/str_worker.js')
+});
+poolStr.send({data: 'xx', callback: function(err, str) {
+    //todo next process
+}});
+poolStr.on(ThreadPool.EVENT_WORKER_ERROR, function(err, threadId) {
+    //show error message
 });
 ```

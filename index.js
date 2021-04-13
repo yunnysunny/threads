@@ -1,1 +1,2 @@
-exports.ThreadPool = require('./lib/ThreadPool');
+exports.NoneBlockingThreadPool = require('./lib/NoneBlockingThreadPool');
+exports.BlockingThreadPool = require('./lib/BlockingThreadPool');

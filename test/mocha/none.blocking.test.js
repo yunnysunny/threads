@@ -1,8 +1,8 @@
-const {ThreadPool} = require('../../index');
+const {NoneBlockingThreadPool: ThreadPool} = require('../../index');
 const path = require('path');
 const {expect} = require('chai');
 
-describe('basic test:', function() {
+describe('none blocking test:', function() {
     it('init a thread pool with poolSize 5', function(done) {
         const POOL_SIZE = 5;
         const poolStr = new ThreadPool({
@@ -25,7 +25,7 @@ describe('basic test:', function() {
             poolSize: POOL_SIZE,
             script: path.join(__dirname, '../scripts/str_worker.js')
         });
-        poolStr.send('xx');
+        poolStr.send({data: 'xx'});
         done();
     });
     it('transfer string single time', function(done) {
@@ -33,7 +33,7 @@ describe('basic test:', function() {
             poolSize: 5,
             script: path.join(__dirname, '../scripts/str_worker.js')
         });
-        poolStr.send('test');
+        poolStr.send({data: 'test'});
         poolStr.on(ThreadPool.EVENT_NEW_MESSAGE, function() {
             poolStr.destroy();
             done();
@@ -47,7 +47,7 @@ describe('basic test:', function() {
             script: path.join(__dirname, '../scripts/str_worker.js')
         });
         for(var i=0;i<COUNT;i++) {
-            poolStr.send(i);
+            poolStr.send({data: i});
         }
         expect(poolStr._sendCount[0]).to.be.equal(COUNT / POOL_SIZE);
         poolStr.destroy();
@@ -60,14 +60,17 @@ describe('basic test:', function() {
             script: path.join(__dirname, '../scripts/str_worker.js')
         });
         for(let i=0;i<COUNT;i++) {
-            poolStr.send(i);
+            poolStr.send({data: i});
         }
         let sum = 0;
-        for (let i=0;i<POOL_SIZE;i++) {
-            console.time('thread'+i);
-        }
+        let initCount = 0;
+        // eslint-disable-next-line no-console
+        console.time('begin_INIT');
         poolStr.on(ThreadPool.EVENT_WORKER_ONLINE, function(threadId, index) {
-            console.timeEnd('thread'+index);
+            if (++initCount === POOL_SIZE) {
+                // eslint-disable-next-line no-console
+                console.timeEnd('begin_INIT');
+            }
         });
         poolStr.on(ThreadPool.EVENT_NEW_MESSAGE, function() {
             sum++;

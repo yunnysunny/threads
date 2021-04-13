@@ -1,3 +1,9 @@
+## v0.2.0
+
+### Add
+
+1. Add the class of BlockingThreadPool.
+
 ## v0.1.1
 
 ### Fix
