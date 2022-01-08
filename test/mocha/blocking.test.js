@@ -28,6 +28,7 @@ describe('blocking test:', function() {
         poolStr.send({data: 'xx', callback: function(err, str) {
             expect(err).to.be.null;
             expect(str).to.have.string('xx');
+            poolStr.destroy();
             done();
         }});
         

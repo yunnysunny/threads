@@ -26,6 +26,7 @@ describe('none blocking test:', function() {
             script: path.join(__dirname, '../scripts/str_worker.js')
         });
         poolStr.send({data: 'xx'});
+        poolStr.destroy();
         done();
     });
     it('transfer string single time', function(done) {
